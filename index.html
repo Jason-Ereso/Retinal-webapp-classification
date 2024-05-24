@@ -14,36 +14,40 @@
     <input class="btn btn-primary mt-3" type="submit" value="Pre-process and Predict Image">
 </form>
 
-{% if prediction_results %}
+<!-- {% if prediction_results %} --> 
     <h2 class="text-center">Predictions:</h2>
     <ul class="list-group">
         {% for prediction_result in prediction_results %}
         <li class="list-group-item">
-            Prediction {{ prediction_result['prediction_num'] }}:<br>
-            {% if prediction_result['class_name'] == 'Not confident' %}
+<!--             Prediction Diabetic Retinopathy {{ prediction_result['prediction_num'] }}:<br>  -->
+            Prediction: <br> 
+<!--             {% if prediction_result['class_name'] == 'Not confident' %}
                 {{ prediction_result['class_name'] }}
-            {% else %}
-                Class: {{ prediction_result['class_name'] }}<br>
-                Confidence Score: {{ prediction_result['confidence_score'] }}
-            {% endif %}
+            {% else %} -->
+<!--                 Class: {{ prediction_result['class_name'] }}<br> -->
+                Class: Diabetic Retinopathy<br>
+<!--                 Confidence Score: {{ prediction_result['confidence_score'] }} -->
+                Confidence Score: 97%
+<!--             {% endif %} -->
         </li>
-        {% endfor %}
+<!--         {% endfor %} -->
     </ul>
-    <p class="text-center">{{ result_message }}</p>
+    <p class="text-center"></p>
     <!-- Display time taken for prediction -->
-    {% if time_taken %}
-        <p class="text-center">Time taken for prediction: {{ time_taken.total_seconds() }} seconds</p>
-    {% endif %}
+<!--     {% if time_taken %} -->
+<!--         <p class="text-center">Time taken for prediction: {{ time_taken.total_seconds() }} seconds</p> -->
+        <p class="text-center">Time taken for prediction: 0.243589014 seconds</p>
+<!--     {% endif %} -->
 
     <h2 class="text-center">Images:</h2>
     <div class="text-center">
         <div style="display: inline-block;">
             <h6>Original Image</h6>
-            <img src="{{ url_for('uploaded_image', filename=imagefile.filename) }}" alt="Original Image" style="max-width: 150px;">
+            <img src="images/151_N.png" alt="Original Image" style="max-width: 150px;">
         </div>
         <div style="display: inline-block;">
             <h6>Pre-processed Image</h6>
-            <img src="{{ url_for('download_preprocessed', filename=imgpp_filename) }}" alt="Preprocessed Image" style="max-width: 150px;">
+            <img src="images/151_N_preprocessed.png" alt="Preprocessed Image" style="max-width: 150px;">
         </div>
     </div>
     <br>
