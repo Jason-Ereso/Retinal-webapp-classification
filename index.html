@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retinal Disease Identifier</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1 class="text-center">Retinal Disease Identifier</h1>
+<form class="p-3 text-center" action='/', method="post" enctype="multipart/form-data">
+    <input class="form-control" type="file" name="imagefile" accept="image/*" required>
+    <input class="btn btn-primary mt-3" type="submit" value="Pre-process and Predict Image">
+</form>
+
+{% if prediction_results %}
+    <h2 class="text-center">Predictions:</h2>
+    <ul class="list-group">
+        {% for prediction_result in prediction_results %}
+        <li class="list-group-item">
+            Prediction {{ prediction_result['prediction_num'] }}:<br>
+            {% if prediction_result['class_name'] == 'Not confident' %}
+                {{ prediction_result['class_name'] }}
+            {% else %}
+                Class: {{ prediction_result['class_name'] }}<br>
+                Confidence Score: {{ prediction_result['confidence_score'] }}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="text-center">{{ result_message }}</p>
+    <!-- Display time taken for prediction -->
+    {% if time_taken %}
+        <p class="text-center">Time taken for prediction: {{ time_taken.total_seconds() }} seconds</p>
+    {% endif %}
+
+    <h2 class="text-center">Images:</h2>
+    <div class="text-center">
+        <div style="display: inline-block;">
+            <h6>Original Image</h6>
+            <img src="{{ url_for('uploaded_image', filename=imagefile.filename) }}" alt="Original Image" style="max-width: 150px;">
+        </div>
+        <div style="display: inline-block;">
+            <h6>Pre-processed Image</h6>
+            <img src="{{ url_for('download_preprocessed', filename=imgpp_filename) }}" alt="Preprocessed Image" style="max-width: 150px;">
+        </div>
+    </div>
+    <br>
+    <center><a href="{{ url_for('download_preprocessed', filename=imgpp_filename) }}" class="btn btn-primary" download>Download Preprocessed Image</a></center>
+{% endif %}
+</body>
+</html>
