@@ -17,7 +17,7 @@
 <!-- {% if prediction_results %} --> 
     <h2 class="text-center">Predictions:</h2>
     <ul class="list-group">
-        {% for prediction_result in prediction_results %}
+<!--         {% for prediction_result in prediction_results %} -->
         <li class="list-group-item">
 <!--             Prediction Diabetic Retinopathy {{ prediction_result['prediction_num'] }}:<br>  -->
             Prediction: <br> 
@@ -52,6 +52,6 @@
     </div>
     <br>
     <center><a href="{{ url_for('download_preprocessed', filename=imgpp_filename) }}" class="btn btn-primary" download>Download Preprocessed Image</a></center>
-{% endif %}
+<!-- {% endif %} -->
 </body>
 </html>
